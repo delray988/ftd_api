@@ -8,8 +8,8 @@ payload = '{{"grant_type": "password", "username": "{}", "password": "{}"}}'.for
 headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
 requests.packages.urllib3.disable_warnings()
-
 response = requests.post(URL, data=payload, headers=headers, verify=False)
+
 if response.status_code == 200:
    access_token = response.json().get('access_token')
    expiration = response.json().get('expires_in')
