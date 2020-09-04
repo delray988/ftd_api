@@ -7,8 +7,6 @@ import requests
 Request the neccessary access token to make API calls
 Call this script from the command line with three arugments in order of:
 IP/HostName Username Password
-
-TODO:write the tokens to the /tmp/ directory
 """
 
 #if you are not sure of the api version you can substitute it for "latest"
