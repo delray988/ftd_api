@@ -6,8 +6,6 @@ Revoke a token
 
 import requests
 import sys
-import os
-import re
 
 #read the contents of the access token text file into a variable
 with open('access_token.txt', "r") as file:
