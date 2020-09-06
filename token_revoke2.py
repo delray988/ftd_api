@@ -3,16 +3,15 @@
 """
 Revoke a token
 """
-import pdb
+
 import requests
 import sys
 import os
 import re
 
-URL = 'https://' + sys.argv[1] + ':443/api/fdm/latest/fdm/token'
 
 #Scan the current directory for any files named 'access_token.txt'
-#If any are found revoke the token and delete the access_token.txt and refresh_token.txt files
+#If any are found revoke the token
 print("Searching for tokens to revoke ...")
 with os.scandir('./') as entries:
    token_count = 0
@@ -20,7 +19,8 @@ with os.scandir('./') as entries:
       if re.search(r'access_token.txt\b', str(entry)) is not None:
          with open('access_token.txt', "r") as file:
             access_token = file.read().replace('\n', '')
-
+         
+         URL = 'https://' + sys.argv[1] + ':443/api/fdm/latest/fdm/token'
          payload = '{{"grant_type": "revoke_token", \
              "access_token": "{}", \
              "token_to_revoke": "{}"}}'.format(access_token, access_token)
@@ -32,10 +32,6 @@ with os.scandir('./') as entries:
 
          if response.status_code == 200:
             print('token revoked')
-            #os.remove('access_token.txt')
-            #print('access_token.txt file removed')
-            #os.remove('refresh_token.txt')
-            #print('refresh_token.txt file removed')
          else:
             print("HTTP ERROR: {}".format(response.status_code))
             print("Server Error: {}".format(response.json().get('message')))
